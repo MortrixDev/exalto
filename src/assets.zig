@@ -38,8 +38,8 @@ const Tile_Info = struct {
 
     pub fn get_rect(self: Tile_Info) r.Rectangle {
         return r.Rectangle.init(
-            @floatFromInt(@mod(self.index, 16)),
-            @floatFromInt(@rem(self.index, 16) * 16),
+            @floatFromInt(@mod(self.index, 16) * 16),
+            @floatFromInt(@divFloor(self.index, 16) * 16),
             TILE_SIZE,
             TILE_SIZE
         );
@@ -50,5 +50,5 @@ pub const TILE_LOOKUP = [_]Tile_Info {
     // 000 - air
     Tile_Info.init(-1, Tile_Shape.NONE),
     // 001 - brick
-    Tile_Info.init(0, Tile_Shape.SOLID)
+    Tile_Info.init(1, Tile_Shape.SOLID)
 };

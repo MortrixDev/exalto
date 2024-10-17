@@ -40,12 +40,12 @@ pub const State = struct {
     }
 
     pub fn update(g: *State) void {
-        if (r.isKeyDown(r.KeyboardKey.key_right)) g.player_vel.x = 2 * SUBPIXELS
-        else if (r.isKeyDown(r.KeyboardKey.key_left)) g.player_vel.x = -2 * SUBPIXELS
+        if (r.isKeyDown(r.KeyboardKey.key_right)) g.player_vel.x = 1 * SUBPIXELS
+        else if (r.isKeyDown(r.KeyboardKey.key_left)) g.player_vel.x = -1 * SUBPIXELS
         else g.player_vel.x = 0;
 
-        if (r.isKeyDown(r.KeyboardKey.key_up)) g.player_vel.y = 2 * SUBPIXELS
-        else if (r.isKeyDown(r.KeyboardKey.key_down)) g.player_vel.y = -2 * SUBPIXELS
+        if (r.isKeyDown(r.KeyboardKey.key_up)) g.player_vel.y = 1 * SUBPIXELS
+        else if (r.isKeyDown(r.KeyboardKey.key_down)) g.player_vel.y = -1 * SUBPIXELS
         else g.player_vel.y = 0;
 
         g.player_pos.x += g.player_vel.x;
@@ -53,7 +53,7 @@ pub const State = struct {
         
         g.camera_pos = .{
             .x = g.player_pos.x + TILE_SIZE * SUBPIXELS / 2,
-            .y = g.player_pos.y + TILE_SIZE * SUBPIXELS / 2,
+            .y = g.player_pos.y - TILE_SIZE * SUBPIXELS / 2,
         };
         g.step_count += 1;
     }

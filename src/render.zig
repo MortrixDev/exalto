@@ -25,16 +25,16 @@ pub const Renderer = struct {
     }
 
     pub fn render(rend: *Renderer, g: *game.State) !void {
-        r.beginDrawing();
-
         r.beginTextureMode(rend.canvas);
         r.clearBackground(r.Color.init(0x22, 0x22, 0x22, 0xFF));
 
         rend.draw_rect_v(Vec2.init(0, 0), Vec2.init(TILE_SIZE, TILE_SIZE), r.Color.white);
         rend.draw_tile(rend.atlas, Vec2.init(0, 0), 1);
         rend.draw_rect_v(g.player_pos, Vec2.init(TILE_SIZE, TILE_SIZE), r.Color.orange);
-
+        
         r.endTextureMode();
+
+        r.beginDrawing();
 
         const aspect_ratio: f32 = @as(f32, @floatFromInt(r.getScreenWidth())) / @as(f32, @floatFromInt(r.getScreenHeight()));
 
@@ -46,7 +46,7 @@ pub const Renderer = struct {
         
         r.drawTexturePro(
             rend.canvas.texture,
-            r.Rectangle.init(offset_x, offset_y, width, height),
+            r.Rectangle.init(offset_x, offset_y, width, -height),
             r.Rectangle.init(0, 0, @floatFromInt(r.getScreenWidth()), @floatFromInt(r.getScreenHeight())),
             r.Vector2.init(0, 0),
             0,
@@ -64,6 +64,7 @@ pub const Renderer = struct {
             });
 
         r.drawText(@ptrCast(&debug_info_buffer), 10, 10, 20, r.Color.white);
+        rend.draw_tile(rend.atlas, Vec2.init(0, 0), 1);
 
         r.endDrawing();
     }
@@ -73,7 +74,7 @@ pub const Renderer = struct {
     }
 
     fn to_screen_y(rend: *Renderer, x: i32) i32 {
-        return @divTrunc(x - rend.camera_pos.y, SUBPIXELS) + VIEW_SIZE / 2;
+        return -@divTrunc(x - rend.camera_pos.y, SUBPIXELS) + VIEW_SIZE / 2;
     }
 
     fn to_screen_v(rend: *Renderer, pos: Vec2) r.Vector2 {
