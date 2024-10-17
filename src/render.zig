@@ -28,7 +28,6 @@ pub const Renderer = struct {
         r.beginTextureMode(rend.canvas);
         r.clearBackground(r.Color.init(0x22, 0x22, 0x22, 0xFF));
 
-        rend.draw_rect_v(Vec2.init(0, 0), Vec2.init(TILE_SIZE, TILE_SIZE), r.Color.white);
         rend.draw_tile(rend.atlas, Vec2.init(0, 0), 1);
         rend.draw_rect_v(g.player_pos, Vec2.init(TILE_SIZE, TILE_SIZE), r.Color.orange);
         
@@ -64,7 +63,6 @@ pub const Renderer = struct {
             });
 
         r.drawText(@ptrCast(&debug_info_buffer), 10, 10, 20, r.Color.white);
-        rend.draw_tile(rend.atlas, Vec2.init(0, 0), 1);
 
         r.endDrawing();
     }
